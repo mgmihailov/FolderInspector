@@ -5,41 +5,61 @@
 void WindowsFileInfoReader::ReadFileInfo(const std::string& folderName, std::vector<FileInfo>& outFiles)
 {
 	WIN32_FIND_DATA fileData{ 0 };
-	HANDLE searchHandle = FindFirstFile(folderName.c_str(), &fileData);
-	if (searchHandle == INVALID_HANDLE_VALUE)
+	HANDLE currentHandle = FindFirstFile(folderName.c_str(), &fileData);
+
+	if (currentHandle == INVALID_HANDLE_VALUE)
 	{
 		return;
 	}
+
 	std::string wildcard = folderName + "/*";
-	searchHandle = FindFirstFile(wildcard.c_str(), &fileData);
+	std::vector<HANDLE> handleQueue;
+	currentHandle = FindFirstFile(wildcard.c_str(), &fileData);
 	BOOL foundNextFile = 0;
-	while (searchHandle != INVALID_HANDLE_VALUE)
+	while (true)
 	{
-		foundNextFile = FindNextFile(searchHandle, &fileData);
-		if (foundNextFile)
+		if (currentHandle == INVALID_HANDLE_VALUE)
 		{
-			if ((fileData.dwFileAttributes & FILE_ATTRIBUTE_SYSTEM) == 0 &&
-				strcmp(fileData.cFileName, "..") != 0)
+			break;
+		}
+
+		foundNextFile = FindNextFile(currentHandle, &fileData);
+		if (foundNextFile == 0)
+		{
+			FindClose(currentHandle);
+			if (!handleQueue.empty())
 			{
-				TIME_ZONE_INFORMATION timeZoneInfo{ 0 };
-				GetTimeZoneInformation(&timeZoneInfo);
-				TimeInfo dateCreated = FileTimeToTimeInfo(&fileData.ftCreationTime, &timeZoneInfo);
-				TimeInfo dateLastModified = FileTimeToTimeInfo(&fileData.ftLastWriteTime, &timeZoneInfo);
-
-				auto fileSize = (fileData.nFileSizeHigh * (static_cast<DWORD64>(MAXDWORD) + 1)) + fileData.nFileSizeLow;
-
-				outFiles.push_back(FileInfo(fileData.cFileName, fileSize / 1024, dateCreated, dateLastModified));
-				bool isDirectory = (fileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0;
-				if (!isDirectory)
-				{
-					
-				}
+				currentHandle = handleQueue.back();
+				handleQueue.pop_back();
+				wildcard = wildcard.substr(0, wildcard.find("/*"));
+				wildcard = wildcard.substr(0, wildcard.find_last_of("/"));
+				continue;
+			}
+			else
+			{
+				break;
 			}
 		}
-		else
+
+		if ((fileData.dwFileAttributes & FILE_ATTRIBUTE_SYSTEM) == 0 &&
+			strcmp(fileData.cFileName, "..") != 0)
 		{
-			FindClose(searchHandle);
-			break;
+			TIME_ZONE_INFORMATION timeZoneInfo{ 0 };
+			GetTimeZoneInformation(&timeZoneInfo);
+
+			TimeInfo dateCreated = FileTimeToTimeInfo(&fileData.ftCreationTime, &timeZoneInfo);
+			TimeInfo dateLastModified = FileTimeToTimeInfo(&fileData.ftLastWriteTime, &timeZoneInfo);
+			auto fileSize = (fileData.nFileSizeHigh * (static_cast<DWORD64>(MAXDWORD) + 1)) + fileData.nFileSizeLow;
+
+			outFiles.push_back(FileInfo(fileData.cFileName, fileSize / 1000, dateCreated, dateLastModified));
+
+			if ((fileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
+			{
+				wildcard = wildcard.substr(0, wildcard.find("/*"));
+				wildcard = wildcard + "/" + fileData.cFileName + "/*";
+				handleQueue.push_back(currentHandle);
+				currentHandle = FindFirstFile(wildcard.c_str(), &fileData);
+			}
 		}
 	}
 
@@ -62,3 +82,4 @@ TimeInfo WindowsFileInfoReader::FileTimeToTimeInfo(PFILETIME fileTime, PTIME_ZON
 	outTimeInfo.Minutes = localSystemTime.wMinute;
 	return outTimeInfo;
 }
+
