@@ -26,7 +26,6 @@ struct FileInfo
 	unsigned long long FileSize;
 	TimeInfo DateCreated;
 	TimeInfo DateLastModified;
-	std::vector<FileInfo> Files;
 
 	FileInfo()
 		: FileSize(0)
