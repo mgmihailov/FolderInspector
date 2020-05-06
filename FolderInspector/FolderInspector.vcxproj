@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FolderInspector.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="minitrace.c" />
     <ClCompile Include="TextFileInfoWriter.cpp" />
