@@ -1,36 +1,64 @@
-#include "TextFileInfoWriter.h"
-
 #include <algorithm>
 #include <iomanip>
-#include <fstream>
+
+#include "TextFileInfoWriter.h"
+
+TextFileInfoWriter::TextFileInfoWriter(const char* outputDir)
+: m_OutputDir(outputDir)
+, m_MaxLineLength(0)
+, m_MaxFileNameLength(0)
+{
+	std::string outputFile = m_OutputDir + "output.txt";
+	m_OutputStream.open(outputFile, std::ios::trunc);
+}
 
 void TextFileInfoWriter::WriteFileInfo(const std::vector<FileInfo>& files)
 {
-	size_t maxWidth = std::max_element(files.begin(), files.end(), [](const FileInfo& first, const FileInfo& second)
+	long long totalBytes = 0;
+	long totalFolders = 0;
+	long totalFiles = 0;
+	std::for_each(files.begin(), files.end(), [&](const FileInfo& first)
 		{
-			return first.FileName.size() < second.FileName.size();
-		})->FileName.size();
+			int currentFileNameLength = first.FileName.length() + first.Level * (size_t)INDENT_SPACES;
+			if (currentFileNameLength > m_MaxFileNameLength)
+			{
+				m_MaxFileNameLength = currentFileNameLength;
+			}
 
-	std::string outputFile = m_OutputDir + "output.txt";
-	std::ofstream output(outputFile, std::ios::trunc);
-	std::for_each(files.begin(), files.end(), [&output, &maxWidth](const FileInfo& info)
+			int currentMaxLineLength = currentFileNameLength + 58 + 1; // all the symbols after the file name. TODO: Move to constants.
+			if (currentMaxLineLength > m_MaxLineLength)
+			{
+				m_MaxLineLength = currentMaxLineLength;
+			}
+
+			totalBytes += first.FileSize;
+			totalFolders += first.IsDir;
+			totalFiles += !first.IsDir;
+		}
+	);
+	char* buffer = new char[m_MaxLineLength];
+	std::for_each(files.begin(), files.end(), [&](const FileInfo& info)
 		{
-			output.fill(' ');
-			output << std::setw(maxWidth) << std::left << info.FileName << " | ";
-			output.fill('0');
-			output << std::internal;
-			output << std::setw(12) << info.FileSize << " KB | ";
-			output << std::setw(2) << info.DateCreated.Day << "-";
-			output << std::setw(2) << info.DateCreated.Month << "-";
-			output << std::setw(4) << info.DateCreated.Year << " ";
-			output << std::setw(2) << info.DateCreated.Hours << ":";
-			output << std::setw(2) << info.DateCreated.Minutes << " | ";
-			output << std::setw(2) << info.DateLastModified.Day << "-";
-			output << std::setw(2) << info.DateLastModified.Month << "-";
-			output << std::setw(4) << info.DateLastModified.Year << " ";
-			output << std::setw(2) << info.DateCreated.Hours << ":";
-			output << std::setw(2) << info.DateCreated.Minutes << " | " << std::endl;
-		});
+			int fileNameWidth = info.Level ? int(m_MaxFileNameLength - info.Level * (size_t)INDENT_SPACES) : 0;
+			sprintf_s(buffer, m_MaxLineLength, "%-s%-*s | %.*llu KB | %02u-%02u-%4u %02u:%02u | %02u-%02u-%4u %02u:%02u |"
+				, std::string(info.Level * (size_t)INDENT_SPACES, ' ').c_str(), fileNameWidth, info.FileName.c_str()
+				, 12, static_cast<unsigned long long>(std::ceil(info.FileSize / 1024.0))
+				, info.DateCreated.Day
+				, info.DateCreated.Month
+				, info.DateCreated.Year
+				, info.DateCreated.Hours
+				, info.DateCreated.Minutes
+				, info.DateLastModified.Day
+				, info.DateLastModified.Month
+				, info.DateLastModified.Year
+				, info.DateLastModified.Hours
+				, info.DateLastModified.Minutes);
+			m_OutputStream << buffer << std::endl;
+		}
+	);
+	delete[] buffer;
 
-	output.close();
+	m_OutputStream << std::endl << "Total bytes: " << totalBytes << " bytes" << std::endl;
+	m_OutputStream << "Total folders: " << totalFolders << " folders" << std::endl;
+	m_OutputStream << "Total files: " << totalFiles << " files" << std::endl;
 }
