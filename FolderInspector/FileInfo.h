@@ -26,20 +26,27 @@ struct FileInfo
 	unsigned long long FileSize;
 	TimeInfo DateCreated;
 	TimeInfo DateLastModified;
+	int Level;
+	bool IsDir;
 
 	FileInfo()
 		: FileSize(0)
+		, Level(0)
+		, IsDir(false)
 	{
 	}
 
 	FileInfo(const char* fileName
 		, unsigned long long fileSize
 		, TimeInfo dateCreated
-		, TimeInfo dateLastModified)
+		, TimeInfo dateLastModified
+		, int level
+		, bool isDir)
 			: FileName(fileName)
 			, FileSize(fileSize)
 			, DateCreated(dateCreated)
 			, DateLastModified(dateLastModified)
-	{
-	}
+			, Level(level)
+			, IsDir(isDir)
+	{}
 };
