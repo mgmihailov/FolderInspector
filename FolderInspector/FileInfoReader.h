@@ -2,6 +2,8 @@
 
 #include "FileInfo.h"
 
+#include "minitrace.h"
+
 #include <vector>
 
 class FileInfoReader
