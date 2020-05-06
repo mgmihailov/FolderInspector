@@ -8,9 +8,15 @@
 class WindowsFileInfoReader : public FileInfoReader
 {
 public:
-	void ReadFileInfo(const std::string& folderName, std::vector<FileInfo>& outFiles);
+	bool EnumDir(const std::string& folderName, std::vector<FileInfo>& outFiles);
 
 private:
 	TimeInfo FileTimeToTimeInfo(PFILETIME fileTime, PTIME_ZONE_INFORMATION timeZoneInfo);
+	void ExtendFolderPath(const char* folderName);
+	void BacktrackFolderPath();
 
+	bool m_IsCurrentEntryDir;
+	std::string m_PreviousPath;
+	std::string m_CurrentPath;
+	std::vector<HANDLE> m_DirHandles;
 };

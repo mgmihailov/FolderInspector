@@ -9,5 +9,5 @@
 class FileInfoReader
 {
 public:
-	virtual void ReadFileInfo(const std::string& folderName, std::vector<FileInfo>& outFiles) = 0;
+	virtual bool EnumDir(const std::string& folderName, std::vector<FileInfo>& outFiles) = 0;
 };
