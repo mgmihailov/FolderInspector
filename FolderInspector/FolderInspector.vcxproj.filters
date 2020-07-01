@@ -30,6 +30,9 @@
     <ClCompile Include="FolderInspector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FolderInspector.h">
@@ -47,10 +50,13 @@
     <ClInclude Include="TextFileInfoWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FileInfo.h">
+    <ClInclude Include="minitrace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="minitrace.h">
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

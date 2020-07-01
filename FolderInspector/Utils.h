@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 
 struct TimeInfo
 {
@@ -10,14 +11,7 @@ struct TimeInfo
 	unsigned Hours;
 	unsigned Minutes;
 
-	TimeInfo()
-		: Day(0)
-		, Month(0)
-		, Year(0)
-		, Hours(0)
-		, Minutes(0)
-	{
-	}
+	TimeInfo();
 };
 
 struct FileInfo
@@ -27,26 +21,21 @@ struct FileInfo
 	TimeInfo DateCreated;
 	TimeInfo DateLastModified;
 	int Level;
-	bool IsDir;
 
-	FileInfo()
-		: FileSize(0)
-		, Level(0)
-		, IsDir(false)
-	{
-	}
+	FileInfo();
 
 	FileInfo(const char* fileName
 		, unsigned long long fileSize
 		, TimeInfo dateCreated
 		, TimeInfo dateLastModified
-		, int level
-		, bool isDir)
-			: FileName(fileName)
-			, FileSize(fileSize)
-			, DateCreated(dateCreated)
-			, DateLastModified(dateLastModified)
-			, Level(level)
-			, IsDir(isDir)
-	{}
+		, int level);
+};
+
+struct Filters
+{
+	std::vector<std::string> IncludeAttributes;
+	std::vector<std::string> ExcludeAttributes;
+	std::unordered_map<std::string, bool> ExtensionFilters;
+
+	Filters();
 };

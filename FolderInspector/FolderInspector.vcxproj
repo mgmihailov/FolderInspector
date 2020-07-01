@@ -135,15 +135,16 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="minitrace.c" />
     <ClCompile Include="TextFileInfoWriter.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="WindowsFileInfoReader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FileInfo.h" />
     <ClInclude Include="FileInfoReader.h" />
     <ClInclude Include="FileInfoWriter.h" />
     <ClInclude Include="FolderInspector.h" />
     <ClInclude Include="minitrace.h" />
     <ClInclude Include="TextFileInfoWriter.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="WindowsFileInfoReader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
