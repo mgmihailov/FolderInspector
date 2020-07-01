@@ -9,9 +9,11 @@ int main(int argc, char** argv)
 	mtr_init("trace.json");
 
 	FolderInspector folderInspector(new WindowsFileInfoReader(), new TextFileInfoWriter("D:\\"));
-	//folderInspector.InspectFolder("D:\\Games"); // 38156 entries
-	folderInspector.InspectFolder("C:");
-	//folderInspector.InspectFolder("D:\\folder_inspector_test");
+	Filters filters;
+
+	filters.IncludeAttributes.push_back("dir");
+	filters.IncludeAttributes.push_back("sys");
+	folderInspector.InspectFolder("D:\\folder_inspector_test", filters);
 
 	mtr_shutdown();
 

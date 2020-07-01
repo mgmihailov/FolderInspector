@@ -1,13 +1,20 @@
 #include "WindowsFileInfoReader.h"
+#include "WindowsUtils.h"
 
 #include <algorithm>
 
-bool WindowsFileInfoReader::EnumDir(const std::string& folderName, std::vector<FileInfo>& outFiles)
+
+bool WindowsFileInfoReader::EnumDir(const std::string& folderName, std::vector<FileInfo>& outFiles, const Filters& filters)
 {
 	WIN32_FIND_DATA fileData{ 0 };
 	m_CurrentPath = folderName + "\\*";
 	m_IsCurrentEntryDir = true;
 	BOOL foundFile = false;
+
+	DWORD includeAttributeFilters;
+	DWORD excludeAttributeFilters;
+	ParseAttributes(filters, includeAttributeFilters, excludeAttributeFilters);
+
 	do
 	{
 		if (m_IsCurrentEntryDir)
@@ -34,7 +41,6 @@ bool WindowsFileInfoReader::EnumDir(const std::string& folderName, std::vector<F
 					CloseHandle(m_DirHandles.back());
 				}
 				m_DirHandles.pop_back();
-				m_IsCurrentEntryDir = false;
 				continue;
 			}
 		}
@@ -44,7 +50,8 @@ bool WindowsFileInfoReader::EnumDir(const std::string& folderName, std::vector<F
 			continue;
 		}
 
-		if (((fileData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN) != 0) || ((fileData.dwFileAttributes & FILE_ATTRIBUTE_SYSTEM) != 0))
+		if (((fileData.dwFileAttributes & excludeAttributeFilters) != 0) ||
+			((fileData.dwFileAttributes & includeAttributeFilters) == 0))
 		{
 			continue;
 		}
@@ -53,6 +60,20 @@ bool WindowsFileInfoReader::EnumDir(const std::string& folderName, std::vector<F
 		if (m_IsCurrentEntryDir)
 		{
 			ExtendFolderPath(fileData.cFileName);
+		}
+		else
+		{
+			std::string nameStr = fileData.cFileName;
+			auto extStart = nameStr.find_last_of(".");
+			if (extStart != std::string::npos)
+			{
+				std::string ext = nameStr.substr(extStart + 1);
+				auto it = filters.ExtensionFilters.find(ext);
+				if (it == filters.ExtensionFilters.end() || !it->second)
+				{
+					continue;
+				}
+			}
 		}
 
 		TIME_ZONE_INFORMATION timeZoneInfo{ 0 };
@@ -67,11 +88,11 @@ bool WindowsFileInfoReader::EnumDir(const std::string& folderName, std::vector<F
 			, li.QuadPart
 			, FileTimeToTimeInfo(&fileData.ftCreationTime, &timeZoneInfo)
 			, FileTimeToTimeInfo(&fileData.ftLastWriteTime, &timeZoneInfo)
-			, static_cast<int>(m_DirHandles.size())
-			, m_IsCurrentEntryDir);
+			, static_cast<int>(m_DirHandles.size()));
+
 	} while (!m_DirHandles.empty());
 
-	return true;
+	return GetLastError() == ERROR_NO_MORE_FILES;
 }
 
 TimeInfo WindowsFileInfoReader::FileTimeToTimeInfo(PFILETIME fileTime, PTIME_ZONE_INFORMATION timeZoneInfo)

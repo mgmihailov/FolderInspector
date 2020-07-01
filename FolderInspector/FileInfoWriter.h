@@ -9,5 +9,5 @@
 class FileInfoWriter
 {
 public:
-	virtual void WriteFileInfo(const std::vector<FileInfo>& files) = 0;
+	virtual void WriteFileInfo(const std::vector<FileInfo>& files, const Filters& filters) = 0;
 };
