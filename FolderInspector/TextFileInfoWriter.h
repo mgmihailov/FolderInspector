@@ -18,6 +18,6 @@ private:
 	std::string m_OutputDir;
 	std::ofstream m_OutputStream;
 
-	int m_MaxLineLength;
-	int m_MaxFileNameLength;
+	size_t m_MaxLineLength;
+	size_t m_MaxFileNameLength;
 };
