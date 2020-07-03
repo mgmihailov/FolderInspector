@@ -21,6 +21,7 @@ struct FileInfo
 	TimeInfo DateCreated;
 	TimeInfo DateLastModified;
 	int Level;
+	bool IsDir;
 
 	FileInfo();
 
@@ -28,7 +29,8 @@ struct FileInfo
 		, unsigned long long fileSize
 		, TimeInfo dateCreated
 		, TimeInfo dateLastModified
-		, int level);
+		, int level
+		, bool isDir);
 };
 
 class Filters

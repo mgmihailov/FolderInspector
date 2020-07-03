@@ -19,12 +19,14 @@ FileInfo::FileInfo(const char* fileName
 	, unsigned long long fileSize
 	, TimeInfo dateCreated
 	, TimeInfo dateLastModified
-	, int level)
+	, int level
+	, bool isDir)
 		: FileName(fileName)
 		, FileSize(fileSize)
 		, DateCreated(dateCreated)
 		, DateLastModified(dateLastModified)
 		, Level(level)
+		, IsDir(isDir)
 {}
 
 Filters::Filters()

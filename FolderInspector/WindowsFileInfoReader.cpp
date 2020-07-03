@@ -87,7 +87,8 @@ bool WindowsFileInfoReader::EnumDir(const std::string& folderName, std::vector<F
 			, li.QuadPart
 			, FileTimeToTimeInfo(&fileData.ftCreationTime, &timeZoneInfo)
 			, FileTimeToTimeInfo(&fileData.ftLastWriteTime, &timeZoneInfo)
-			, static_cast<int>(m_DirHandles.size()));
+			, static_cast<int>(m_DirHandles.size())
+			, m_IsCurrentEntryDir);
 
 	} while (!m_DirHandles.empty());
 
