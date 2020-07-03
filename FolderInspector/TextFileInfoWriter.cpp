@@ -3,6 +3,8 @@
 
 #include "TextFileInfoWriter.h"
 
+const size_t LINE_LENGTH_WO_FILENAME = 59;
+
 TextFileInfoWriter::TextFileInfoWriter(const char* outputDir)
 : m_OutputDir(outputDir)
 , m_MaxLineLength(0)
@@ -12,20 +14,20 @@ TextFileInfoWriter::TextFileInfoWriter(const char* outputDir)
 	m_OutputStream.open(outputFile, std::ios::trunc);
 }
 
-void TextFileInfoWriter::WriteFileInfo(const std::vector<FileInfo>& files)
+void TextFileInfoWriter::WriteFileInfo(const std::vector<FileInfo>& files, const Filters& filters)
 {
 	long long totalBytes = 0;
 	long totalFolders = 0;
 	long totalFiles = 0;
 	std::for_each(files.begin(), files.end(), [&](const FileInfo& first)
 		{
-			int currentFileNameLength = first.FileName.length() + first.Level * (size_t)INDENT_SPACES;
+			size_t currentFileNameLength = first.FileName.length() + first.Level * (size_t)INDENT_SPACES;
 			if (currentFileNameLength > m_MaxFileNameLength)
 			{
 				m_MaxFileNameLength = currentFileNameLength;
 			}
 
-			int currentMaxLineLength = currentFileNameLength + 58 + 1; // all the symbols after the file name. TODO: Move to constants.
+			size_t currentMaxLineLength = currentFileNameLength + LINE_LENGTH_WO_FILENAME;
 			if (currentMaxLineLength > m_MaxLineLength)
 			{
 				m_MaxLineLength = currentMaxLineLength;
