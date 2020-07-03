@@ -43,14 +43,14 @@ void ParseAttributes(const Filters& filters, DWORD& outIncludeAttribs, DWORD& ou
 	outIncludeAttribs = 0;
 	outExcludeAttribs = 0;
 
-	if ((filters.IncludeAttributes.empty() && filters.ExcludeAttributes.empty()))
+	if ((filters.AreIncludeAttribsEmpty() && filters.AreExcludeAttribsEmpty()))
 	{
 		outIncludeAttribs = DefaultIncludeAttributes;
 		outExcludeAttribs = DefaultExcludeAttributes;
 	}
 	else
 	{
-		for (const auto& attr : filters.IncludeAttributes)
+		for (const auto& attr : filters.GetIncludeAttribs())
 		{
 			auto it = ArgsToFlags.find(attr);
 			if (it != ArgsToFlags.end())
@@ -63,7 +63,7 @@ void ParseAttributes(const Filters& filters, DWORD& outIncludeAttribs, DWORD& ou
 			}
 		}
 
-		for (const auto& attr : filters.ExcludeAttributes)
+		for (const auto& attr : filters.GetExcludeAttribs())
 		{
 			auto it = ArgsToFlags.find(attr);
 			if (it != ArgsToFlags.end())

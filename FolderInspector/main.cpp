@@ -11,8 +11,8 @@ int main(int argc, char** argv)
 	FolderInspector folderInspector(new WindowsFileInfoReader(), new TextFileInfoWriter("D:\\"));
 	Filters filters;
 
-	filters.IncludeAttributes.push_back("dir");
-	filters.IncludeAttributes.push_back("sys");
+	std::vector<std::string> extsToExclude{"mp3", "png"};
+	filters.AddExtensionsToExclude(extsToExclude);
 	folderInspector.InspectFolder("D:\\folder_inspector_test", filters);
 
 	mtr_shutdown();

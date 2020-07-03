@@ -31,11 +31,26 @@ struct FileInfo
 		, int level);
 };
 
-struct Filters
+class Filters
 {
+public:
+	Filters();
+
+	bool ShouldSkipExtension(const std::string& ext) const;
+	bool AreIncludeAttribsEmpty() const;
+	bool AreExcludeAttribsEmpty() const;
+	const std::vector<std::string>& GetIncludeAttribs() const;
+	const std::vector<std::string>& GetExcludeAttribs() const;
+
+	void AddAttribsToInclude(const std::vector<std::string>& includeAttribs);
+	void AddAttribsToExclude(const std::vector<std::string>& excludeAttribs);
+	void AddExtensionsToInclude(const std::vector<std::string>& includeExtensions);
+	void AddExtensionsToExclude(const std::vector<std::string>& excludeExtensions);
+
+private:
 	std::vector<std::string> IncludeAttributes;
 	std::vector<std::string> ExcludeAttributes;
-	std::unordered_map<std::string, bool> ExtensionFilters;
+	std::unordered_map<std::string, bool> IncludeExtensions;
+	std::unordered_map<std::string, bool> ExcludeExtensions;
 
-	Filters();
 };

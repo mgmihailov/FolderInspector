@@ -68,8 +68,7 @@ bool WindowsFileInfoReader::EnumDir(const std::string& folderName, std::vector<F
 			if (extStart != std::string::npos)
 			{
 				std::string ext = nameStr.substr(extStart + 1);
-				auto it = filters.ExtensionFilters.find(ext);
-				if (it == filters.ExtensionFilters.end() || !it->second)
+				if (filters.ShouldSkipExtension(ext))
 				{
 					continue;
 				}
