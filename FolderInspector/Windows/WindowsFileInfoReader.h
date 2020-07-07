@@ -3,7 +3,7 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
-#include "FileInfoReader.h"
+#include "../FileInfoReader.h"
 
 class WindowsFileInfoReader : public FileInfoReader
 {

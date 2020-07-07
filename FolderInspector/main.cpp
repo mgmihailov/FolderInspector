@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "WindowsFileInfoReader.h"
+#include "Windows/WindowsFileInfoReader.h"
 #include "TextFileInfoWriter.h"
 #include "FolderInspector.h"
 

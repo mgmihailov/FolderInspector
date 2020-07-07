@@ -136,7 +136,7 @@
     <ClCompile Include="minitrace.c" />
     <ClCompile Include="TextFileInfoWriter.cpp" />
     <ClCompile Include="Utils.cpp" />
-    <ClCompile Include="WindowsFileInfoReader.cpp" />
+    <ClCompile Include="Windows\WindowsFileInfoReader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileInfoReader.h" />
@@ -145,8 +145,8 @@
     <ClInclude Include="minitrace.h" />
     <ClInclude Include="TextFileInfoWriter.h" />
     <ClInclude Include="Utils.h" />
-    <ClInclude Include="WindowsFileInfoReader.h" />
-    <ClInclude Include="WindowsUtils.h" />
+    <ClInclude Include="Windows\WindowsFileInfoReader.h" />
+    <ClInclude Include="Windows\WindowsUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
