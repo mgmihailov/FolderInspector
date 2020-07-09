@@ -9,6 +9,12 @@ class FileInfoReader;
 class FileInfoWriter;
 
 
+struct InspectorOptions
+{
+	Filters Filters;
+	std::string OutputDir;
+};
+
 class FolderInspector
 {
 public:
