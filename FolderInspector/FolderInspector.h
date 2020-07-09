@@ -19,7 +19,7 @@ class FolderInspector
 {
 public:
 	FolderInspector();
-	FolderInspector(FileInfoReader* reader, FileInfoWriter* writer);
+	FolderInspector(InspectorOptions options);
 
 	void InspectFolder(const std::string& name);
 	void InspectFolder(const std::string& name, const Filters& filters);
@@ -29,3 +29,5 @@ private:
 	FileInfoWriter* m_FileInfoWriter;
 
 };
+
+FileInfoReader* CreateFileInfoReader();

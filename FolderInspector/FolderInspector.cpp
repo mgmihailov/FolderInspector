@@ -3,6 +3,9 @@
 #include "FileInfoReader.h"
 #include "FileInfoWriter.h"
 
+// TODO: Add an option for the type of writer to create
+#include "TextFileInfoWriter.h"
+
 #define INITIAL_ENTRIES_COUNT 200000
 
 FolderInspector::FolderInspector()
@@ -11,9 +14,9 @@ FolderInspector::FolderInspector()
 {
 }
 
-FolderInspector::FolderInspector(FileInfoReader* reader, FileInfoWriter* writer)
-	: m_FileInfoReader(reader)
-	, m_FileInfoWriter(writer)
+FolderInspector::FolderInspector(InspectorOptions options)
+	: m_FileInfoReader(CreateFileInfoReader())
+	, m_FileInfoWriter(new TextFileInfoWriter(options.OutputDir))
 {
 }
 

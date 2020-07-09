@@ -75,12 +75,11 @@ int main(int argc, char** argv)
 {
 	mtr_init("trace.json");
 
-	FolderInspector folderInspector(new WindowsFileInfoReader(), new TextFileInfoWriter("D:\\"));
-	Filters filters;
+	InspectorOptions options;
+	ParseArguments(argc, argv, options);
 
-	std::vector<std::string> extsToExclude{"mp3", "png"};
-	filters.AddExtensionsToExclude(extsToExclude);
-	folderInspector.InspectFolder("D:\\folder_inspector_test", filters);
+	FolderInspector folderInspector(options);
+	folderInspector.InspectFolder("D:\\folder_inspector_test", options.Filters);
 
 	mtr_shutdown();
 

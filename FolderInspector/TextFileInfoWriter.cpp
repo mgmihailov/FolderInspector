@@ -5,7 +5,7 @@
 
 const size_t LINE_LENGTH_WO_FILENAME = 59;
 
-TextFileInfoWriter::TextFileInfoWriter(const char* outputDir)
+TextFileInfoWriter::TextFileInfoWriter(const std::string& outputDir)
 : m_OutputDir(outputDir)
 , m_MaxLineLength(0)
 , m_MaxFileNameLength(0)

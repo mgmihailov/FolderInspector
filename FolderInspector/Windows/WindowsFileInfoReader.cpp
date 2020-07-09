@@ -122,3 +122,8 @@ void WindowsFileInfoReader::BacktrackFolderPath()
 	m_CurrentPath = m_CurrentPath.substr(0, m_CurrentPath.length() - 2);
 	m_CurrentPath = m_CurrentPath.substr(0, m_CurrentPath.find_last_of("\\")) + "\\*";
 }
+
+FileInfoReader* CreateFileInfoReader()
+{
+	return new WindowsFileInfoReader();
+}

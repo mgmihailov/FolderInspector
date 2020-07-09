@@ -10,7 +10,7 @@ constexpr int INDENT_SPACES = 2;
 class TextFileInfoWriter : public FileInfoWriter
 {
 public:
-	TextFileInfoWriter(const char* outputDir);
+	TextFileInfoWriter(const std::string& outputDir);
 
 	void WriteFileInfo(const std::vector<FileInfo>& files, const Filters& filters);
 
