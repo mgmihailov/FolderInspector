@@ -6,9 +6,6 @@ project(FolderInspector)
 # add the executable
 add_executable(FolderInspector)
 
-FILE(GLOB COMMON_SOURCES FolderInspector/FolderInspector.cpp FolderInspector/main.cpp)
-FILE(GLOB PLATFORM_SOURCES FolderInspector/${CMAKE_SYSTEM_NAME}/*.*)
-
 target_sources(FolderInspector
     PUBLIC
         FolderInspector/FolderInspector.cpp
