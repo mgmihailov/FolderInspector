@@ -9,7 +9,7 @@ const char ARG_INCLUDE_ATTRIBUTES[] = { "--include-attrs" };
 const char ARG_EXCLUDE_ATTRIBUTES[] = { "--exclude-attrs" };
 const char ARG_INCLUDE_EXTENSIONS[] = { "--include-exts" };
 const char ARG_EXCLUDE_EXTENSIONS[] = { "--exclude-exts" };
-const char ARG_OUTPUT_DIRECTORY[] = { "--output-dir" };
+const char ARG_OUTPUT_DIRECTORY[]   = { "--output-dir" };
 
 void PrintUsage()
 {
@@ -68,6 +68,10 @@ void ParseArguments(int countArgs, char** args, InspectorOptions& outOptions)
 			std::vector<std::string> exts;
 			ParseListOfValues(strchr(args[i], '=') + 1, exts);
 			outOptions.Filters.AddExtensionsToExclude(exts);
+		}
+		else if (strncmp(args[i], ARG_OUTPUT_DIRECTORY, sizeof(ARG_OUTPUT_DIRECTORY) - 1) == 0)
+		{
+			outOptions.OutputDir = strchr(args[i], '=') + 1;
 		}
 		else
 		{
