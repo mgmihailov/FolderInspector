@@ -11,6 +11,7 @@ class FileInfoWriter;
 
 struct InspectorOptions
 {
+	std::string DirectoryToInspect;
 	Filters Filters;
 	std::string OutputDir;
 };
