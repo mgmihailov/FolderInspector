@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "Windows/WindowsUtils.h"
 #include "Windows/WindowsFileInfoReader.h"
 #include "TextFileInfoWriter.h"
 #include "FolderInspector.h"
@@ -17,7 +18,13 @@ void PrintUsage()
 		"[--exclude-attrs=<attr1>,<attr2>,...,<attrN>] [--include-exts=<ext1>,<ext2>,...,<extN>] "\
 		"[--exclude-exts=<ext1>,<ext2>,...,<extN>] [--output-dir=<directory>]" << std::endl << std::endl;
 
-	//TODO: Print extended info for each flag and its possible values
+	//TODO: Add a description of what each attribute means
+	std::cout << "Available attributes:" << std::endl;
+	for (const auto& attr : AttrArgsToFlags)
+	{
+		std::cout << attr.first <<std::endl;
+	}
+	std::cout << std::endl;
 }
 
 void ParseListOfValues(char* args, std::vector<std::string>& outVals)
