@@ -13,4 +13,5 @@ target_sources(FolderInspector
         FolderInspector/minitrace.c
         FolderInspector/TextFileInfoWriter.cpp
         FolderInspector/Utils.cpp
-        FolderInspector/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_NAME}FileInfoReader.cpp)
+        FolderInspector/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_NAME}FileInfoReader.cpp
+        FolderInspector/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_NAME}Utils.cpp)
