@@ -50,13 +50,12 @@ const std::unordered_map<std::string, DWORD> AttrArgsToFlags = {
 };
 
 const DWORD DefaultIncludeAttributes = AttrArgsToFlags.at(ATTR_ARCH) | AttrArgsToFlags.at(ATTR_REG)
-| AttrArgsToFlags.at(ATTR_NOTIDX) | AttrArgsToFlags.at(ATTR_UCHG) | AttrArgsToFlags.at(ATTR_DIR);
+| AttrArgsToFlags.at(ATTR_NOTIDX) | AttrArgsToFlags.at(ATTR_UCHG) | AttrArgsToFlags.at(ATTR_DIR)
+| AttrArgsToFlags.at(ATTR_LNK) | AttrArgsToFlags.at(ATTR_OFFLN) | AttrArgsToFlags.at(ATTR_COMPR)
+| AttrArgsToFlags.at(ATTR_ENC) | AttrArgsToFlags.at(ATTR_INTSTR) | AttrArgsToFlags.at(ATTR_DISTR)
+| AttrArgsToFlags.at(ATTR_NOTCTL) | AttrArgsToFlags.at(ATTR_SPARSE) | AttrArgsToFlags.at(ATTR_TEMP);
 
-const DWORD DefaultExcludeAttributes = AttrArgsToFlags.at(ATTR_COMPR) | AttrArgsToFlags.at(ATTR_ENC)
-| AttrArgsToFlags.at(ATTR_HIDDEN) | AttrArgsToFlags.at(ATTR_INTSTR)
-| AttrArgsToFlags.at(ATTR_OFFLN) | AttrArgsToFlags.at(ATTR_DISTR) | AttrArgsToFlags.at(ATTR_NOTCTL)
-| AttrArgsToFlags.at(ATTR_LNK) | AttrArgsToFlags.at(ATTR_SPARSE) | AttrArgsToFlags.at(ATTR_SYS)
-| AttrArgsToFlags.at(ATTR_TEMP);
+const DWORD DefaultExcludeAttributes = AttrArgsToFlags.at(ATTR_HIDDEN) | AttrArgsToFlags.at(ATTR_SYS);
 
 const DWORD AllFileAttributes = DefaultIncludeAttributes | DefaultExcludeAttributes;
 
