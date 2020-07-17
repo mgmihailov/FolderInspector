@@ -11,10 +11,10 @@ add_executable(FolderInspector)
 
 target_sources(FolderInspector
     PUBLIC
-        FolderInspector/FolderInspector.cpp
-        FolderInspector/minitrace.c
-        FolderInspector/TextFileInfoWriter.cpp
-        FolderInspector/Utils.cpp
-        FolderInspector/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_NAME}Main.cpp
-        FolderInspector/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_NAME}FileInfoReader.cpp
-        FolderInspector/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_NAME}Utils.cpp)
+        Source/FolderInspector.cpp
+        Source/minitrace.c
+        Source/TextFileInfoWriter.cpp
+        Source/Utils.cpp
+        Source/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_NAME}Main.cpp
+        Source/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_NAME}FileInfoReader.cpp
+        Source/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_NAME}Utils.cpp)
