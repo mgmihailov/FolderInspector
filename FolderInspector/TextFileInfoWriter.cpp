@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iomanip>
+#include <math.h>
 
 #include "TextFileInfoWriter.h"
 
