@@ -5,5 +5,5 @@
 class LinuxFileInfoReader : public FileInfoReader
 {
 public:
-	bool EnumDir(const std::string& folderName, std::vector<FileInfo>& outFiles, const Filters& filters);
+	bool EnumDir(const std::string& folderName, std::vector<FileInfo>& outFiles, const InspectorFilters& filters);
 };
