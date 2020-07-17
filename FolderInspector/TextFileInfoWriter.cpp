@@ -44,7 +44,7 @@ void TextFileInfoWriter::WriteFileInfo(const std::vector<FileInfo>& files, const
 			int fileNameWidth = info.Level ? int(m_MaxFileNameLength - info.Level * (size_t)INDENT_SPACES) : 0;
 			FormatString(buffer, m_MaxLineLength, "%-s%-*s | %.*llu KB | %02u-%02u-%4u %02u:%02u | %02u-%02u-%4u %02u:%02u |"
 				, std::string(info.Level * (size_t)INDENT_SPACES, ' ').c_str(), fileNameWidth, info.FileName.c_str()
-				, 12, static_cast<unsigned long long>(std::ceil(info.FileSize / 1024.0))
+				, 12, static_cast<unsigned long long>(ceil(info.FileSize / 1024.0))
 				, info.DateCreated.Day
 				, info.DateCreated.Month
 				, info.DateCreated.Year
