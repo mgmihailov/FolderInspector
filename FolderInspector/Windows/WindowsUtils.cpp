@@ -1,3 +1,5 @@
+#include <stdarg.h>
+
 #include "WindowsUtils.h"
 
 void ParseAttributes(const InspectorFilters& filters, DWORD& outIncludeAttribs, DWORD& outExcludeAttribs)
@@ -55,4 +57,12 @@ void ParseAttributes(const InspectorFilters& filters, DWORD& outIncludeAttribs, 
 			}
 		}
 	}
+}
+
+void FormatString(char* buffer, size_t bufferLength, const char* format, ...)
+{
+	va_list args;
+	va_start(args, format);
+	vsprintf_s(buffer, bufferLength, format, args);
+	va_end(args);
 }

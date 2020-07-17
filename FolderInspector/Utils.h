@@ -57,3 +57,5 @@ private:
 	std::unordered_map<std::string, bool> ExcludeExtensions;
 
 };
+
+void FormatString(char* buffer, size_t bufferLength, const char* format, ...);
