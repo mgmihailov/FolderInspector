@@ -37,13 +37,13 @@ void ParseListOfValues(char* args, std::vector<std::string>& outVals)
 	}
 }
 
-void ParseArguments(int countArgs, char** args, InspectorOptions& outOptions)
+bool ParseArguments(int countArgs, char** args, InspectorOptions& outOptions)
 {
 	if ((countArgs == 2 && strcmp(args[1], "--help") == 0) ||
 		countArgs < 2)
 	{
 		PrintUsage();
-		return;
+		return false;
 	}
 
 	for (int i = 1; i < countArgs; ++i)
@@ -84,8 +84,11 @@ void ParseArguments(int countArgs, char** args, InspectorOptions& outOptions)
 		{
 			std::cout << "Invalid argument: " << args[i] << "!" << std::endl;
 			PrintUsage();
+			return false;
 		}
 	}
+
+	return true;
 }
 
 int main(int argc, char** argv)
@@ -93,7 +96,10 @@ int main(int argc, char** argv)
 	mtr_init("trace.json");
 
 	InspectorOptions options;
-	ParseArguments(argc, argv, options);
+	if (!ParseArguments(argc, argv, options))
+	{
+		return 1;
+	}
 
 	FolderInspector folderInspector(options);
 	folderInspector.InspectFolder(options.DirectoryToInspect, options.Filters);
