@@ -3,7 +3,7 @@
 #include "../Utils.h"
 #include "LinuxUtils.h"
 
-void ParseAttributes(const Filters& filters, mode_t& outIncludeAttribs, mode_t& outExcludeAttribs)
+void ParseAttributes(const InspectorFilters& filters, mode_t& outIncludeAttribs, mode_t& outExcludeAttribs)
 {
 }
 
