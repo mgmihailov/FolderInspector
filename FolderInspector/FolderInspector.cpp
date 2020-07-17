@@ -22,11 +22,11 @@ FolderInspector::FolderInspector(InspectorOptions options)
 
 void FolderInspector::InspectFolder(const std::string& folderName)
 {
-	Filters defaultFilters;
+	InspectorFilters defaultFilters;
 	InspectFolder(folderName, defaultFilters);
 }
 
-void FolderInspector::InspectFolder(const std::string& folderName, const Filters& filters)
+void FolderInspector::InspectFolder(const std::string& folderName, const InspectorFilters& filters)
 {
 	std::vector<FileInfo> files;
 	files.reserve(INITIAL_ENTRIES_COUNT);

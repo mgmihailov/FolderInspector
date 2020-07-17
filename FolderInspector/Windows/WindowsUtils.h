@@ -59,4 +59,4 @@ const DWORD DefaultExcludeAttributes = AttrArgsToFlags.at(ATTR_HIDDEN) | AttrArg
 
 const DWORD AllFileAttributes = DefaultIncludeAttributes | DefaultExcludeAttributes;
 
-void ParseAttributes(const Filters& filters, DWORD& outIncludeAttribs, DWORD& outExcludeAttribs);
+void ParseAttributes(const InspectorFilters& filters, DWORD& outIncludeAttribs, DWORD& outExcludeAttribs);

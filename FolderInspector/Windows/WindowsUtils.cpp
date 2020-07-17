@@ -1,6 +1,6 @@
 #include "WindowsUtils.h"
 
-void ParseAttributes(const Filters& filters, DWORD& outIncludeAttribs, DWORD& outExcludeAttribs)
+void ParseAttributes(const InspectorFilters& filters, DWORD& outIncludeAttribs, DWORD& outExcludeAttribs)
 {
 	outIncludeAttribs = 0;
 	outExcludeAttribs = 0;

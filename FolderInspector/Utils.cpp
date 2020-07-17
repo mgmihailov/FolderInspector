@@ -29,10 +29,10 @@ FileInfo::FileInfo(const char* fileName
 		, IsDir(isDir)
 {}
 
-Filters::Filters()
+InspectorFilters::InspectorFilters()
 {}
 
-bool Filters::ShouldSkipExtension(const std::string& ext) const
+bool InspectorFilters::ShouldSkipExtension(const std::string& ext) const
 {
 	auto itInclude = IncludeExtensions.find(ext);
 	auto itExclude = ExcludeExtensions.find(ext);
@@ -41,27 +41,27 @@ bool Filters::ShouldSkipExtension(const std::string& ext) const
 			(itExclude != ExcludeExtensions.end() && itExclude->second);
 }
 
-bool Filters::AreIncludeAttribsEmpty() const
+bool InspectorFilters::AreIncludeAttribsEmpty() const
 {
 	return IncludeAttributes.empty();
 }
 
-bool Filters::AreExcludeAttribsEmpty() const
+bool InspectorFilters::AreExcludeAttribsEmpty() const
 {
 	return ExcludeAttributes.empty();
 }
 
-const std::vector<std::string>& Filters::GetIncludeAttribs() const
+const std::vector<std::string>& InspectorFilters::GetIncludeAttribs() const
 {
 	return IncludeAttributes;
 }
 
-const std::vector<std::string>& Filters::GetExcludeAttribs() const
+const std::vector<std::string>& InspectorFilters::GetExcludeAttribs() const
 {
 	return ExcludeAttributes;
 }
 
-void Filters::AddAttribsToInclude(const std::vector<std::string>& includeAttribs)
+void InspectorFilters::AddAttribsToInclude(const std::vector<std::string>& includeAttribs)
 {
 	for (auto attr : includeAttribs)
 	{
@@ -69,7 +69,7 @@ void Filters::AddAttribsToInclude(const std::vector<std::string>& includeAttribs
 	}
 }
 
-void Filters::AddAttribsToExclude(const std::vector<std::string>& excludeAttribs)
+void InspectorFilters::AddAttribsToExclude(const std::vector<std::string>& excludeAttribs)
 {
 	for (auto attr : excludeAttribs)
 	{
@@ -77,7 +77,7 @@ void Filters::AddAttribsToExclude(const std::vector<std::string>& excludeAttribs
 	}
 }
 
-void Filters::AddExtensionsToInclude(const std::vector<std::string>& includeExtensions)
+void InspectorFilters::AddExtensionsToInclude(const std::vector<std::string>& includeExtensions)
 {
 	for (auto ext : includeExtensions)
 	{
@@ -85,7 +85,7 @@ void Filters::AddExtensionsToInclude(const std::vector<std::string>& includeExte
 	}
 }
 
-void Filters::AddExtensionsToExclude(const std::vector<std::string>& excludeExtensions)
+void InspectorFilters::AddExtensionsToExclude(const std::vector<std::string>& excludeExtensions)
 {
 	for (auto ext : excludeExtensions)
 	{

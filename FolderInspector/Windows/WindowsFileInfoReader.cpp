@@ -4,7 +4,7 @@
 #include <algorithm>
 
 
-bool WindowsFileInfoReader::EnumDir(const std::string& folderName, std::vector<FileInfo>& outFiles, const Filters& filters)
+bool WindowsFileInfoReader::EnumDir(const std::string& folderName, std::vector<FileInfo>& outFiles, const InspectorFilters& filters)
 {
 	WIN32_FIND_DATA fileData{ 0 };
 	m_CurrentPath = folderName + "\\*";

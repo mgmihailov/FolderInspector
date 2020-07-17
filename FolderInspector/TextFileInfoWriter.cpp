@@ -14,7 +14,7 @@ TextFileInfoWriter::TextFileInfoWriter(const std::string& outputDir)
 	m_OutputStream.open(outputFile, std::ios::trunc);
 }
 
-void TextFileInfoWriter::WriteFileInfo(const std::vector<FileInfo>& files, const Filters& filters)
+void TextFileInfoWriter::WriteFileInfo(const std::vector<FileInfo>& files, const InspectorFilters& filters)
 {
 	long long totalBytes = 0;
 	long totalFolders = 0;

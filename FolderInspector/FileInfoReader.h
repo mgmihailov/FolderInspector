@@ -8,5 +8,5 @@
 class FileInfoReader
 {
 public:
-	virtual bool EnumDir(const std::string& folderName, std::vector<FileInfo>& outFiles, const Filters& filters) = 0;
+	virtual bool EnumDir(const std::string& folderName, std::vector<FileInfo>& outFiles, const InspectorFilters& filters) = 0;
 };

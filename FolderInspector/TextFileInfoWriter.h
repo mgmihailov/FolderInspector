@@ -12,7 +12,7 @@ class TextFileInfoWriter : public FileInfoWriter
 public:
 	TextFileInfoWriter(const std::string& outputDir);
 
-	void WriteFileInfo(const std::vector<FileInfo>& files, const Filters& filters);
+	void WriteFileInfo(const std::vector<FileInfo>& files, const InspectorFilters& filters);
 
 private:
 	std::string m_OutputDir;

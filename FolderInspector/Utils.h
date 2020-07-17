@@ -33,10 +33,10 @@ struct FileInfo
 		, bool isDir);
 };
 
-class Filters
+class InspectorFilters
 {
 public:
-	Filters();
+	InspectorFilters();
 
 	bool ShouldSkipExtension(const std::string& ext) const;
 	bool AreIncludeAttribsEmpty() const;

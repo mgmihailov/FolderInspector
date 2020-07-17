@@ -10,7 +10,7 @@
 class WindowsFileInfoReader : public FileInfoReader
 {
 public:
-	bool EnumDir(const std::string& folderName, std::vector<FileInfo>& outFiles, const Filters& filters);
+	bool EnumDir(const std::string& folderName, std::vector<FileInfo>& outFiles, const InspectorFilters& filters);
 
 private:
 	TimeInfo FileTimeToTimeInfo(PFILETIME fileTime, PTIME_ZONE_INFORMATION timeZoneInfo);

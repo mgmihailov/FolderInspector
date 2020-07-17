@@ -12,7 +12,7 @@ class FileInfoWriter;
 struct InspectorOptions
 {
 	std::string DirectoryToInspect;
-	Filters Filters;
+	InspectorFilters Filters;
 	std::string OutputDir;
 };
 
@@ -23,7 +23,7 @@ public:
 	FolderInspector(InspectorOptions options);
 
 	void InspectFolder(const std::string& name);
-	void InspectFolder(const std::string& name, const Filters& filters);
+	void InspectFolder(const std::string& name, const InspectorFilters& filters);
 
 private:
 	FileInfoReader* m_FileInfoReader;
