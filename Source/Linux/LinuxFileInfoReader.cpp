@@ -4,3 +4,8 @@ bool LinuxFileInfoReader::EnumDir(const std::string& folderName, std::vector<Fil
 {
   return true;
 }
+
+FileInfoReader* CreateFileInfoReader()
+{
+	return new LinuxFileInfoReader();
+}
