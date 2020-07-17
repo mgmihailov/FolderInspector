@@ -1,9 +1,9 @@
 #include <iostream>
 
-#include "Windows/WindowsUtils.h"
-#include "Windows/WindowsFileInfoReader.h"
-#include "TextFileInfoWriter.h"
-#include "FolderInspector.h"
+#include "WindowsUtils.h"
+#include "WindowsFileInfoReader.h"
+#include "../TextFileInfoWriter.h"
+#include "../FolderInspector.h"
 
 const char ARG_DIRECTORY[]          = { "--dir" };
 const char ARG_INCLUDE_ATTRIBUTES[] = { "--include-attrs" };
