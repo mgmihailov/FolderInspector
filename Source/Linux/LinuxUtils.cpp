@@ -1,17 +1,17 @@
 #include <iostream>
 #include <stdarg.h>
 
-#include "../Utils.h"
 #include "LinuxUtils.h"
 
-void ParseAttributes(const InspectorFilters& filters, mode_t& outIncludeAttribs, mode_t& outExcludeAttribs)
+
+void ParseAttributes(const InspectorFilters& filters, std::unordered_map<unsigned int, bool>& outInclExclAttribs)
 {
 	for (const auto& attr : filters.GetIncludeAttribs())
 	{
 		auto it = AttrArgsToFlags.find(attr);
 		if (it != AttrArgsToFlags.end())
 		{
-			outIncludeAttribs |= it->second;
+			outInclExclAttribs[it->second] = true;
 		}
 		else
 		{
@@ -24,7 +24,10 @@ void ParseAttributes(const InspectorFilters& filters, mode_t& outIncludeAttribs,
 		auto it = AttrArgsToFlags.find(attr);
 		if (it != AttrArgsToFlags.end())
 		{
-			outExcludeAttribs |= it->second;
+			if (!outInclExclAttribs.erase(it->second))
+			{
+				outInclExclAttribs[it->second] = false;
+			}
 		}
 		else
 		{

@@ -5,7 +5,8 @@
 
 #include <sys/stat.h>
 
-class InspectorFilters;
+#include "../Utils.h"
+
 
 const std::string ATTR_REG = { "reg" };
 const std::string ATTR_DIR = { "dir" };
@@ -55,5 +56,5 @@ const mode_t DefaultExcludeAttributes = 0;
 
 const mode_t AllFileAttributes = 0;
 
-void ParseAttributes(const InspectorFilters& filters, mode_t& outIncludeAttribs, mode_t& outExcludeAttribs);
+void ParseAttributes(const InspectorFilters& filters, std::unordered_map<unsigned int, bool>& outInclExclAttribs);
 
