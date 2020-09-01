@@ -82,7 +82,6 @@ bool WindowsFileInfoReader::EnumDir(const std::string& folderName, std::vector<F
 		li.LowPart = fileData.nFileSizeLow;
 		li.HighPart = fileData.nFileSizeHigh;
 
-		FileInfo info;
 		outFiles.emplace_back(fileData.cFileName
 			, li.QuadPart
 			, FileTimeToTimeInfo(&fileData.ftCreationTime, &timeZoneInfo)
