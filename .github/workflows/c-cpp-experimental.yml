@@ -12,5 +12,6 @@ jobs:
     runs-on: macos-latest
 
     steps:
+    - uses: actions/checkout@v2
     - name: test
-    - run: mknod whiteout_device w
+      run: mknod whiteout_device w
