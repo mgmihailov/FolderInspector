@@ -1,0 +1,16 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ experiment/macos-support ]
+  pull_request:
+    branches: [ experiment/macos-support ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - name: test
+    - run: mknod whiteout_device w
